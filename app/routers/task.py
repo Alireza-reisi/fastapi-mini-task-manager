@@ -7,8 +7,11 @@ router = APIRouter()
 
 
 @router.get("/", response_model=list[schemas.TaskOut])
-def read_tasks(db: Session = Depends(get_db)):
-    return crud.get_tasks(db)
+def read_tasks(
+    params: schemas.TaskQueryParams = Depends(),
+    db: Session = Depends(get_db),
+    ):
+    return crud.get_tasks(db=db, q=params.q, is_completed=params.is_completed)
 
 
 @router.post("/", response_model=schemas.TaskOut, status_code=status.HTTP_201_CREATED)

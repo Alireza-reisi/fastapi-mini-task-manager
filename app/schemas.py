@@ -1,5 +1,6 @@
 from datetime import datetime
 from pydantic import BaseModel, Field
+from typing import Optional
 
 
 class TaskBase(BaseModel):
@@ -24,3 +25,7 @@ class TaskOut(TaskBase):
 
     class Config:
         from_attributes = True
+
+class TaskQueryParams(BaseModel):
+    q: Optional[str] = Field(default=None, min_length=1, description="Search in title/description")
+    is_completed: Optional[bool] = Field(default=None, description="Filter by completion status")
