@@ -1,11 +1,11 @@
 from fastapi import FastAPI
-from database import Base, engine
+from app.database import Base, engine
+from app import models
 
 Base.metadata.create_all(bind=engine)
 
 app = FastAPI(title="Tasks API")
 
-
 @app.get("/")
 def root():
-    return {"massage": "hello"}
+    return {"message": "hello"}
