@@ -1,0 +1,11 @@
+from fastapi import FastAPI
+from database import Base, engine
+
+Base.metadata.create_all(bind=engine)
+
+app = FastAPI(title="Tasks API")
+
+
+@app.get("/")
+def root():
+    return {"massage": "hello"}
